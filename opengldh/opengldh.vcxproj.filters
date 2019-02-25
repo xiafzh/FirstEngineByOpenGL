@@ -4,10 +4,16 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="model.cpp" />
+    <ClCompile Include="vertexbuffer.cpp" />
+    <ClCompile Include="shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ggl.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="model.h" />
+    <ClInclude Include="vertexbuffer.h" />
+    <ClInclude Include="shader.h" />
   </ItemGroup>
 </Project>

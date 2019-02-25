@@ -4,3 +4,9 @@
 *.tlog
 *.idb
 *.pdb
+*.ipch
+*.db
+*.opendb
+.vs/OpenGL_dh/v15/.suo
+*.exe
+*.ilk

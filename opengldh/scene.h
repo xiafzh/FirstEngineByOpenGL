@@ -1,6 +1,7 @@
 #pragma once
 #include "ggl.h"
 
+class CModel;
 class CScene
 {
 public:
@@ -26,4 +27,6 @@ private:
 	glm::mat4 m_modelMatrix;
 	glm::mat4 m_viewMatrix;
 	glm::mat4 m_projectionMatrix;
+
+	CModel* m_model;
 };
