@@ -2,6 +2,7 @@
 #include "ggl.h"
 #include "utils.h"
 #include "model.h"
+#include "ground.h"
 
 const char* VS_PATH = "Res/test.vs";
 const char* FS_PATH = "Res/test.fs";
@@ -11,10 +12,12 @@ const char* FS_PATH = "Res/test.fs";
 CScene::CScene()
 {
 	m_model = new CModel();
+	m_ground = new CGround();
 }
 
 void CScene::Init() 
 {
+	m_ground->Init();
 	m_model->Init("Res/Sphere.obj");
 	m_model->SetPosition(0.0f, 0.0f, -5.0f);
 }
@@ -24,5 +27,6 @@ void CScene::SetViewPortSize(float width, float height) {
 void CScene::Draw() {
 	glClearColor(0.1f, 0.4f, 0.6f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	m_ground->Draw(m_viewMatrix, m_projectionMatrix);
 	m_model->Draw(m_viewMatrix, m_projectionMatrix);
 }

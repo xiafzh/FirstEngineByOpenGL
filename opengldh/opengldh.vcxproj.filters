@@ -7,6 +7,7 @@
     <ClCompile Include="model.cpp" />
     <ClCompile Include="vertexbuffer.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="ground.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ggl.h" />
@@ -15,5 +16,6 @@
     <ClInclude Include="model.h" />
     <ClInclude Include="vertexbuffer.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="ground.h" />
   </ItemGroup>
 </Project>

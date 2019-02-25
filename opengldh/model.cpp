@@ -50,7 +50,7 @@ void CModel::Init(const char*model_path)
 					ss_one_line >> SFloatData.v[0];
 					ss_one_line >> SFloatData.v[1];
 					texcoords.push_back(SFloatData);
-					printf("texcoord : %f,%f\n", SFloatData.v[0], SFloatData.v[1]);
+					//printf("texcoord : %f,%f\n", SFloatData.v[0], SFloatData.v[1]);
 				}
 				else if (sz_one_line[1] == 'n') 
 				{
@@ -60,7 +60,7 @@ void CModel::Init(const char*model_path)
 					ss_one_line >> SFloatData.v[1];
 					ss_one_line >> SFloatData.v[2];
 					normals.push_back(SFloatData);
-					printf("normal : %f,%f,%f\n", SFloatData.v[0], SFloatData.v[1], SFloatData.v[2]);
+					//printf("normal : %f,%f,%f\n", SFloatData.v[0], SFloatData.v[1], SFloatData.v[2]);
 				}
 				else 
 				{
@@ -70,7 +70,7 @@ void CModel::Init(const char*model_path)
 					ss_one_line >> SFloatData.v[1];
 					ss_one_line >> SFloatData.v[2];
 					positions.push_back(SFloatData);
-					printf("position : %f,%f,%f\n", SFloatData.v[0], SFloatData.v[1], SFloatData.v[2]);
+					//printf("position : %f,%f,%f\n", SFloatData.v[0], SFloatData.v[1], SFloatData.v[2]);
 				}
 			}
 			else if (sz_one_line[0] == 'f') 
@@ -120,7 +120,7 @@ void CModel::Draw(glm::mat4 & viewMatrix, glm::mat4 projectionMatrix)
 	glEnable(GL_DEPTH_TEST);
 	m_vertex_buffer->Bind();
 	
-	m_shader->SetTexture("texcoord", "Res/earth.bmp"); 
+	m_shader->SetTexture("U_Texture", "Res/earth.bmp"); 
 	m_shader->Bind(glm::value_ptr(m_model_matrix), glm::value_ptr(viewMatrix), glm::value_ptr(projectionMatrix));
 
 	glDrawArrays(GL_TRIANGLES, 0, m_vertex_buffer->GetSize());

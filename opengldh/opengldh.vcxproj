@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="scene.cpp" />
@@ -136,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ggl.h" />
+    <ClInclude Include="ground.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="shader.h" />

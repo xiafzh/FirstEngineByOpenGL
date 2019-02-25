@@ -2,6 +2,7 @@
 #include "ggl.h"
 
 class CModel;
+class CGround;
 class CScene
 {
 public:
@@ -29,4 +30,5 @@ private:
 	glm::mat4 m_projectionMatrix;
 
 	CModel* m_model;
+	CGround* m_ground;
 };
