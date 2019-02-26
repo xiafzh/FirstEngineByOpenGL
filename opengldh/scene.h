@@ -3,6 +3,7 @@
 
 class CModel;
 class CGround;
+class CSkyBox;
 class CScene
 {
 public:
@@ -31,4 +32,5 @@ private:
 
 	CModel* m_model;
 	CGround* m_ground;
+	CSkyBox* m_sky_box;
 };

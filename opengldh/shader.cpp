@@ -2,7 +2,7 @@
 #include "utils.h"
 #include "vertexbuffer.h"
 
-void Shader::Init(const char*vs, const char*fs) 
+void CShader::Init(const char*vs, const char*fs) 
 {
 	int nFileSize = 0;
 	const char*vsCode = (char*)LoadFileContent(vs,nFileSize);
@@ -17,60 +17,86 @@ void Shader::Init(const char*vs, const char*fs)
 	{
 		return;
 	}
-	mProgram=CreateProgram(vsShader, fsShader);
+	m_program=CreateProgram(vsShader, fsShader);
 	glDeleteShader(vsShader);
 	glDeleteShader(fsShader);
-	if (mProgram != 0)
+	if (m_program != 0)
 	{
-		mModelMatrixLocation = glGetUniformLocation(mProgram, "ModelMatrix");
-		mViewMatrixLocation = glGetUniformLocation(mProgram, "ViewMatrix");
-		mProjectionMatrixLocation = glGetUniformLocation(mProgram, "ProjectionMatrix");
-		mPositionLocation = glGetAttribLocation(mProgram, "position");
-		mColorLocation = glGetAttribLocation(mProgram, "color");
-		mTexcoordLocation = glGetAttribLocation(mProgram, "texcoord");
-		mNormalLocation = glGetAttribLocation(mProgram, "normal");
+		m_model_matrix_location = glGetUniformLocation(m_program, "ModelMatrix");
+		m_view_matrix_location = glGetUniformLocation(m_program, "ViewMatrix");
+		m_projection_matrix_location = glGetUniformLocation(m_program, "ProjectionMatrix");
+		m_position_location = glGetAttribLocation(m_program, "position");
+		m_color_location = glGetAttribLocation(m_program, "color");
+		m_texcoord_location = glGetAttribLocation(m_program, "texcoord");
+		m_normal_location = glGetAttribLocation(m_program, "normal");
 	}
 }
 
-void Shader::Bind(float *M, float *V, float*P) 
+void CShader::Bind(float *M, float *V, float*P) 
 {
-	glUseProgram(mProgram);
-	glUniformMatrix4fv(mModelMatrixLocation, 1, GL_FALSE, M);
-	glUniformMatrix4fv(mViewMatrixLocation, 1, GL_FALSE, V);
-	glUniformMatrix4fv(mProjectionMatrixLocation, 1, GL_FALSE, P);
-	int iIndex = 0;
-	for (auto iter = mUniformTextures.begin(); iter != mUniformTextures.end(); ++iter) 
+	glUseProgram(m_program);
+	glUniformMatrix4fv(m_model_matrix_location, 1, GL_FALSE, M);
+	glUniformMatrix4fv(m_view_matrix_location, 1, GL_FALSE, V);
+	glUniformMatrix4fv(m_projection_matrix_location, 1, GL_FALSE, P);
+	int index = 0;
+	for (auto iter = m_uniform_textures.begin(); iter != m_uniform_textures.end(); ++iter) 
 	{
-		glActiveTexture(GL_TEXTURE0 + iIndex);
-		glBindTexture(GL_TEXTURE_2D, iter->second->mTexture);
-		glUniform1i(iter->second->mLocation, iIndex++);
+		glActiveTexture(GL_TEXTURE0 + index);
+		glBindTexture(GL_TEXTURE_2D, iter->second->m_texture);
+		glUniform1i(iter->second->m_location, index++);
 	}
-	glEnableVertexAttribArray(mPositionLocation);
-	glVertexAttribPointer(mPositionLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-	glEnableVertexAttribArray(mColorLocation);
-	glVertexAttribPointer(mColorLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 4));
-	glEnableVertexAttribArray(mTexcoordLocation);
-	glVertexAttribPointer(mTexcoordLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 8));
-	glEnableVertexAttribArray(mNormalLocation);
-	glVertexAttribPointer(mNormalLocation, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 12));
+	glEnableVertexAttribArray(m_position_location);
+	glVertexAttribPointer(m_position_location, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+	glEnableVertexAttribArray(m_color_location);
+	glVertexAttribPointer(m_color_location, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 4));
+	glEnableVertexAttribArray(m_texcoord_location);
+	glVertexAttribPointer(m_texcoord_location, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 8));
+	glEnableVertexAttribArray(m_normal_location);
+	glVertexAttribPointer(m_normal_location, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 12));
 }
-void Shader::SetTexture(const char * name, const char*imagePath)
+void CShader::SetTexture(const char * name, const char*imagePath)
 {
-	auto iter = mUniformTextures.find(name);
-	if (iter == mUniformTextures.end())
+	auto iter = m_uniform_textures.find(name);
+	if (iter == m_uniform_textures.end())
 	{
-		GLint location = glGetUniformLocation(mProgram, name);
+		GLint location = glGetUniformLocation(m_program, name);
 		if (location != -1)
 		{
 			UniformTexture*t = new UniformTexture;
-			t->mLocation = location;
-			t->mTexture = CreateTexture2DFromBMP(imagePath);
-			mUniformTextures.insert(std::pair<std::string, UniformTexture*>(name, t));
+			t->m_location = location;
+			t->m_texture = CreateTexture2DFromBMP(imagePath);
+			m_uniform_textures.insert(std::pair<std::string, UniformTexture*>(name, t));
 		}
 	}
 	else
 	{
-		glDeleteTextures(1, &iter->second->mTexture);
-		iter->second->mTexture = CreateTexture2DFromBMP(imagePath);
+		glDeleteTextures(1, &iter->second->m_texture);
+		iter->second->m_texture = CreateTexture2DFromBMP(imagePath);
+	}
+}
+
+void CShader::SetVec4(const char * name, float x, float y, float z, float w) 
+{
+	auto iter = m_uniform_vec4s.find(name);
+	if (iter == m_uniform_vec4s.end()) 
+	{
+		GLint location = glGetUniformLocation(m_program, name);
+		if (location != -1) 
+		{
+			SUniformVector4f* v = new SUniformVector4f();
+			v->v[0] = x;
+			v->v[1] = y;
+			v->v[2] = z;
+			v->v[3] = w;
+			v->m_location = location;
+			m_uniform_vec4s.insert(std::pair<std::string, SUniformVector4f*>(name, v));
+		}
+	}
+	else 
+	{
+		iter->second->v[0] = x;
+		iter->second->v[1] = y;
+		iter->second->v[2] = z;
+		iter->second->v[3] = w;
 	}
 }
