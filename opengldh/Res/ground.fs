@@ -25,5 +25,5 @@ void main()
 	float diffuseIntensity=max(0.0,dot(L,n));
 	vec4 diffuseColor=U_LightDiffuse*U_DiffuseMaterial*diffuseIntensity*attenuation;
 	color=ambientColor+diffuseColor;
-	gl_FragColor=color*V_Color;
+	gl_FragColor=/*color**/V_Color;
 }

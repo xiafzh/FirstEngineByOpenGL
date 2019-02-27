@@ -45,6 +45,11 @@ void CShader::Bind(float *M, float *V, float*P)
 		glBindTexture(GL_TEXTURE_2D, iter->second->m_texture);
 		glUniform1i(iter->second->m_location, index++);
 	}
+	for (auto iter = m_uniform_vec4s.begin(); iter != m_uniform_vec4s.end(); ++iter)
+	{
+		glUniform4fv(iter->second->m_location, 1, iter->second->v);
+	}
+
 	glEnableVertexAttribArray(m_position_location);
 	glVertexAttribPointer(m_position_location, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	glEnableVertexAttribArray(m_color_location);
