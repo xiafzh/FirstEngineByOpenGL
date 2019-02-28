@@ -1,9 +1,14 @@
 #include "ggl.h"
 #include "scene.h"
+#include "camera.h"
+#include "ggl_def.h"
 #pragma comment(lib,"opengl32.lib")
 #pragma comment(lib,"glew32.lib")
 
 CScene g_my_scene;
+
+POINT originalPos;
+bool bRotateView = false;
 LRESULT CALLBACK GLWindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
@@ -11,6 +16,55 @@ LRESULT CALLBACK GLWindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		return 0;
+	case WM_RBUTTONDOWN:
+		originalPos.x = LOWORD(lParam);
+		originalPos.y = HIWORD(lParam);
+		ClientToScreen(hwnd, &originalPos);
+		SetCapture(hwnd);
+		ShowCursor(false);
+		bRotateView = true;
+		break;
+	case WM_RBUTTONUP:
+		bRotateView = false;
+		SetCursorPos(originalPos.x, originalPos.y);
+		ReleaseCapture();
+		ShowCursor(true);
+		break;
+	case WM_MOUSEMOVE:
+		if (bRotateView)
+		{
+			g_my_scene.GetCamera()->Rotate(1);
+		}
+		break;
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case 'A':
+			g_my_scene.GetCamera()->SetMoveType(EMT_LEFT);
+			break;
+		case 'D':
+			g_my_scene.GetCamera()->SetMoveType(EMT_RIGHT);
+			break;
+		case 'W':
+			g_my_scene.GetCamera()->SetMoveType(EMT_FRONT);
+			break;
+		case 'S':
+			g_my_scene.GetCamera()->SetMoveType(EMT_BACK);
+			break;
+		}
+		break;
+	case WM_KEYUP:
+
+		switch (wParam)
+		{
+		case 'A':
+		case 'D':
+		case 'W':
+		case 'S':
+			g_my_scene.GetCamera()->SetMoveType(EMT_INVALID);
+			break;
+		}
+		break;
 	}
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }

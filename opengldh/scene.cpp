@@ -18,7 +18,6 @@ CScene::CScene()
 
 void CScene::Init() 
 {
-	m_camera->Init(5.0f, 5.0f, 5.0f);
 	m_ground->Init();
 	m_model->Init("Res/niutou.obj");
 	m_model->SetTexture("Res/niutou.bmp");
@@ -40,4 +39,5 @@ void CScene::Draw()
 	m_ground->Draw(m_camera->GetViewMatrix(), m_projectionMatrix);
 	m_model->Draw(m_camera->GetViewMatrix(), m_projectionMatrix);
 	m_particle->Draw(m_camera->GetViewMatrix(), m_projectionMatrix);
+	m_camera->Move(1.0f);
 }

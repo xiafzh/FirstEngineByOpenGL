@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="ggl.h" />
+    <ClInclude Include="ggl_def.h" />
     <ClInclude Include="ground.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="particlesystem.h" />

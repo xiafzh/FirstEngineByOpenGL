@@ -15,7 +15,7 @@ public:
 	void SetViewPortSize(float width, float height);
 	void Draw();
 public:
-	inline const CCamera* GetCamera() { return m_camera; }
+	inline CCamera* GetCamera() const { return m_camera; }
 private:
 	GLuint m_vbo;
 	GLuint m_ebo;

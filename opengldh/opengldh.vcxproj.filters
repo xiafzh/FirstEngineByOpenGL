@@ -23,5 +23,6 @@
     <ClInclude Include="shader.h" />
     <ClInclude Include="particlesystem.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="ggl_def.h" />
   </ItemGroup>
 </Project>
