@@ -80,6 +80,27 @@ void CShader::SetTexture(const char * name, const char*imagePath)
 	}
 }
 
+void CShader::SetTexture(const char * name, GLuint texture)
+{
+	auto iter = m_uniform_textures.find(name);
+	if (iter == m_uniform_textures.end()) 
+	{
+		GLint location = glGetUniformLocation(m_program, name);
+		if (location != -1) 
+		{
+			UniformTexture*t = new UniformTexture;
+			t->m_location = location;
+			t->m_texture = texture;
+			m_uniform_textures.insert(std::pair<std::string, UniformTexture*>(name, t));
+		}
+	}
+	else 
+	{
+		glDeleteTextures(1, &iter->second->m_texture);
+		iter->second->m_texture = texture;
+	}
+}
+
 void CShader::SetVec4(const char * name, float x, float y, float z, float w) 
 {
 	auto iter = m_uniform_vec4s.find(name);

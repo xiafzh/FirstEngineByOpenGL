@@ -4,6 +4,8 @@
 class CModel;
 class CGround;
 class CSkyBox;
+class CParticleSystem;
+class CCamera;
 class CScene
 {
 public:
@@ -12,6 +14,8 @@ public:
 	void Init();
 	void SetViewPortSize(float width, float height);
 	void Draw();
+public:
+	inline const CCamera* GetCamera() { return m_camera; }
 private:
 	GLuint m_vbo;
 	GLuint m_ebo;
@@ -27,10 +31,11 @@ private:
 	GLint m_projectionMatrixLocation;
 
 	glm::mat4 m_modelMatrix;
-	glm::mat4 m_viewMatrix;
 	glm::mat4 m_projectionMatrix;
 
 	CModel* m_model;
 	CGround* m_ground;
 	CSkyBox* m_sky_box;
+	CParticleSystem* m_particle;
+	CCamera* m_camera;
 };

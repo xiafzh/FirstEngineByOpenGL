@@ -4,24 +4,27 @@
 #include "model.h"
 #include "ground.h"
 #include "skybox.h"
-
-const char* VS_PATH = "Res/test.vs";
-const char* FS_PATH = "Res/test.fs";
+#include "particlesystem.h"
+#include "camera.h"
 
 CScene::CScene()
 {
 	m_model = new CModel();
 	m_ground = new CGround();
 	m_sky_box = new CSkyBox();
+	m_particle = new CParticleSystem();
+	m_camera = new CCamera();
 }
 
 void CScene::Init() 
 {
+	m_camera->Init(5.0f, 5.0f, 5.0f);
 	m_ground->Init();
-	m_model->Init("Res/Sphere.obj");
-	m_model->SetTexture("Res/earth.bmp");
-	m_model->SetPosition(0.0f, 0.0f, -5.0f);
+	m_model->Init("Res/niutou.obj");
+	m_model->SetTexture("Res/niutou.bmp");
+	m_model->SetPosition(0.0f, 0.0f, -3.0f);
 	m_sky_box->Init("Res/");
+	m_particle->Init(0.0f, 0.0f, 0.0f);
 }
 
 void CScene::SetViewPortSize(float width, float height) 
@@ -33,7 +36,8 @@ void CScene::Draw()
 {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	m_sky_box->Draw(m_viewMatrix, m_projectionMatrix);
-	m_ground->Draw(m_viewMatrix, m_projectionMatrix);
-	m_model->Draw(m_viewMatrix, m_projectionMatrix);
+	m_sky_box->Draw(m_camera->GetViewMatrix(), m_projectionMatrix);
+	m_ground->Draw(m_camera->GetViewMatrix(), m_projectionMatrix);
+	m_model->Draw(m_camera->GetViewMatrix(), m_projectionMatrix);
+	m_particle->Draw(m_camera->GetViewMatrix(), m_projectionMatrix);
 }

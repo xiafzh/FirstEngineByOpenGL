@@ -11,10 +11,12 @@ struct UniformTexture
 	}
 };
 
-struct SUniformVector4f {
+struct SUniformVector4f 
+{
 	GLint m_location;
 	float v[4];
-	SUniformVector4f() {
+	SUniformVector4f() 
+	{
 		m_location = -1;
 		memset(v, 0, sizeof(float) * 4);
 	}
@@ -26,6 +28,7 @@ public:
 	void Init(const char*vs, const char*fs);
 	void Bind(float *M, float *V, float*P);
 	void SetTexture(const char * name, const char*imagePath);
+	void SetTexture(const char * name, GLuint texture);
 	void SetVec4(const char * name, float x, float y, float z, float w);
 public:
 	inline GLuint GetProgram() const { return m_program; }

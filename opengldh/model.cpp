@@ -140,7 +140,8 @@ void CModel::Draw(glm::mat4 & viewMatrix, glm::mat4 projectionMatrix)
 
 void CModel::SetPosition(float x, float y, float z)
 {
-	m_model_matrix = glm::translate(x, y, z);
+	m_model_matrix = glm::translate(x, y, z)*glm::scale(0.01f, 0.01f, 0.01f)
+		*glm::rotate(-90.0f,0.0f,1.0f,0.0f);
 }
 
 void CModel::SetTexture(const char*imagePath)

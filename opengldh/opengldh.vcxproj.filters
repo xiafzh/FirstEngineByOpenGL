@@ -9,6 +9,8 @@
     <ClCompile Include="ground.cpp" />
     <ClCompile Include="skybox.cpp" />
     <ClCompile Include="shader.cpp" />
+    <ClCompile Include="particlesystem.cpp" />
+    <ClCompile Include="camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ggl.h" />
@@ -19,5 +21,7 @@
     <ClInclude Include="ground.h" />
     <ClInclude Include="skybox.h" />
     <ClInclude Include="shader.h" />
+    <ClInclude Include="particlesystem.h" />
+    <ClInclude Include="camera.h" />
   </ItemGroup>
 </Project>
