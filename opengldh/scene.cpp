@@ -36,9 +36,11 @@ void CScene::Draw()
 {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	m_camera->Draw(m_projectionMatrix);
 	//m_sky_box->Draw(m_camera->GetViewMatrix(), m_projectionMatrix);
 	m_ground->Draw(m_camera->GetViewMatrix(), m_projectionMatrix);
 	m_model->Draw(m_camera->GetViewMatrix(), m_projectionMatrix);
 	m_particle->Draw(m_camera->GetViewMatrix(), m_projectionMatrix);
-	m_camera->Move(1.0f, m_projectionMatrix);
+	m_camera->Move(1.0f);
+
 }

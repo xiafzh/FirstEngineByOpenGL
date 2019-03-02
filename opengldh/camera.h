@@ -9,8 +9,10 @@ public:
 
 	void Init();
 	void SetMoveType(int type);
-	void Move(float speed, glm::mat4& projectionMatrix);
+	void Move(float speed);
+	void Draw(glm::mat4& projectionMatrix);
 	void Rotate(int angle);
+	glm::vec3 VectorProd(const glm::vec3& v1, const glm::vec3& v2);
 	inline glm::mat4& GetViewMatrix() { return m_viewMatrix; }
 private:
 	int m_move_type;
