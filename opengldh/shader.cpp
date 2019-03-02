@@ -4,22 +4,22 @@
 
 void CShader::Init(const char*vs, const char*fs) 
 {
-	int nFileSize = 0;
-	const char*vsCode = (char*)LoadFileContent(vs,nFileSize);
-	const char*fsCode = (char*)LoadFileContent(fs,nFileSize);
-	GLuint vsShader = CompileShader(GL_VERTEX_SHADER, vsCode);
-	if (vsShader==0)
+	int file_size = 0;
+	const char* vs_code = (char*)LoadFileContent(vs, file_size);
+	const char* fs_code = (char*)LoadFileContent(fs, file_size);
+	GLuint vs_shader = CompileShader(GL_VERTEX_SHADER, vs_code);
+	if (vs_shader==0)
 	{
 		return;
 	}
-	GLuint fsShader = CompileShader(GL_FRAGMENT_SHADER, fsCode);
-	if (fsShader == 0) 
+	GLuint fs_shader = CompileShader(GL_FRAGMENT_SHADER, fs_code);
+	if (fs_shader == 0) 
 	{
 		return;
 	}
-	m_program=CreateProgram(vsShader, fsShader);
-	glDeleteShader(vsShader);
-	glDeleteShader(fsShader);
+	m_program=CreateProgram(vs_shader, fs_shader);
+	glDeleteShader(vs_shader);
+	glDeleteShader(fs_shader);
 	if (m_program != 0)
 	{
 		m_model_matrix_location = glGetUniformLocation(m_program, "ModelMatrix");

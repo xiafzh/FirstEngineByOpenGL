@@ -35,7 +35,6 @@ private:
 
 	CModel* m_model;
 	CGround* m_ground;
-	CSkyBox* m_sky_box;
 	CParticleSystem* m_particle;
 	CCamera* m_camera;
 };
