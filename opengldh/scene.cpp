@@ -19,7 +19,7 @@ CScene::CScene()
 void CScene::Init() 
 {
 	m_ground->Init();
-	m_model->Init("Res/niutou.obj");
+	m_model->Init("Res/niutou.objm");
 	m_model->SetTexture("Res/niutou.bmp");
 	m_model->SetPosition(0.0f, 0.0f, -3.0f);
 	//m_sky_box->Init("Res/skybox_t/");
