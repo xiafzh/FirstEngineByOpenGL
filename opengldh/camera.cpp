@@ -53,10 +53,26 @@ void CCamera::Draw(glm::mat4& projectionMatrix)
 	m_sky_box->Draw(m_camera_pos, GetViewMatrix(), projectionMatrix);
 }
 
-void CCamera::Rotate(int angle)
+void CCamera::MouseMove(RECT& rect, int x, int y)
 {
-	m_camera_pos.y += angle;
 
+}
+
+void CCamera::MouseWheel(short angle)
+{
+	float dis = 1.0f * angle / 120;
+
+	glm::vec3 move_vec = glm::normalize(m_center_pos - m_camera_pos) * dis;
+
+	glm::vec3 next_camera_pos = m_camera_pos + move_vec;
+	glm::vec3 look_vec = m_center_pos - next_camera_pos;
+	float k = CrossProd(look_vec, move_vec);
+	float t = k / (glm::length(look_vec) * glm::length(move_vec));
+
+	if (m_camera_pos + move_vec == m_center_pos) return;
+	if (t * dis < 0) return;
+
+	m_camera_pos = next_camera_pos;
 	m_viewMatrix = glm::lookAt(m_camera_pos, m_center_pos, m_world_up);
 }
 
@@ -65,4 +81,8 @@ glm::vec3 CCamera::VectorProd(const glm::vec3& v1, const glm::vec3& v2)
 	return glm::vec3(v1.y*v2.z - v1.z*v2.y, v1.z*v2.x - v1.x*v2.z, v1.x*v2.y - v1.y*v2.x);
 }
 
+float CCamera::CrossProd(const glm::vec3& v1, const glm::vec3& v2)
+{
+	return v1.x * v2.x + v1.y*v2.y + v1.z*v2.z;
+}
 

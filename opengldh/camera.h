@@ -11,8 +11,10 @@ public:
 	void SetMoveType(int type);
 	void Move(float speed);
 	void Draw(glm::mat4& projectionMatrix);
-	void Rotate(int angle);
+	void MouseMove(RECT& rect, int x, int y);
+	void MouseWheel(short angle);
 	glm::vec3 VectorProd(const glm::vec3& v1, const glm::vec3& v2);
+	float CrossProd(const glm::vec3& v1, const glm::vec3& v2);
 	inline glm::mat4& GetViewMatrix() { return m_viewMatrix; }
 private:
 	int m_move_type;

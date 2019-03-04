@@ -33,8 +33,13 @@ LRESULT CALLBACK GLWindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_MOUSEMOVE:
 		if (bRotateView)
 		{
-			g_my_scene.GetCamera()->Rotate(1);
+			RECT rect;
+			GetWindowRect(hwnd, &rect);
+			g_my_scene.GetCamera()->MouseMove(rect, LOWORD(lParam), HIWORD(lParam));			
 		}
+		break;
+	case WM_MOUSEWHEEL:
+		g_my_scene.GetCamera()->MouseWheel(HIWORD(wParam));
 		break;
 	case WM_KEYDOWN:
 		switch (wParam)
