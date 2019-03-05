@@ -8,6 +8,7 @@
 CScene g_my_scene;
 
 POINT originalPos;
+glm::ivec2 old_pos;
 bool bRotateView = false;
 LRESULT CALLBACK GLWindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -19,6 +20,7 @@ LRESULT CALLBACK GLWindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_RBUTTONDOWN:
 		originalPos.x = LOWORD(lParam);
 		originalPos.y = HIWORD(lParam);
+		old_pos = glm::ivec2(originalPos.x, originalPos.y);
 		ClientToScreen(hwnd, &originalPos);
 		SetCapture(hwnd);
 		ShowCursor(false);
@@ -35,7 +37,10 @@ LRESULT CALLBACK GLWindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			RECT rect;
 			GetWindowRect(hwnd, &rect);
-			g_my_scene.GetCamera()->MouseMove(rect, LOWORD(lParam), HIWORD(lParam));			
+			glm::ivec4 glm_rect = glm::ivec4((int)rect.left, (int)rect.right, (int)rect.top, (int)rect.right);
+			glm::ivec2 new_pos = glm::ivec2((int)LOWORD(lParam), (int)HIWORD(lParam));
+			g_my_scene.GetCamera()->MouseMove(glm_rect, old_pos, new_pos);
+			SetCursorPos(originalPos.x, originalPos.y);
 		}
 		break;
 	case WM_MOUSEWHEEL:
