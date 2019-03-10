@@ -3,26 +3,61 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scene.cpp" />
-    <ClCompile Include="utils.cpp" />
-    <ClCompile Include="model.cpp" />
     <ClCompile Include="vertexbuffer.cpp" />
     <ClCompile Include="ground.cpp" />
     <ClCompile Include="skybox.cpp" />
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="particlesystem.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="model\model.cpp">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="model\model_fbx.cpp">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="model\model_obj.cpp">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\base_util\utils.cpp">
+      <Filter>base_util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ggl.h" />
     <ClInclude Include="scene.h" />
-    <ClInclude Include="utils.h" />
-    <ClInclude Include="model.h" />
     <ClInclude Include="vertexbuffer.h" />
     <ClInclude Include="ground.h" />
     <ClInclude Include="skybox.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="particlesystem.h" />
     <ClInclude Include="camera.h" />
-    <ClInclude Include="ggl_def.h" />
+    <ClInclude Include="model\model.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="model\model_fbx.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="model\model_obj.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\base_util\ggl_def.h">
+      <Filter>base_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\base_util\utils.h">
+      <Filter>base_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\base_util\ggl.h">
+      <Filter>base_util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\base_util\glew.h">
+      <Filter>base_util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="model">
+      <UniqueIdentifier>{3dcfae29-7706-428c-9980-378292c67ad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base_util">
+      <UniqueIdentifier>{afb5718c-0915-45ac-be32-d702afe6f3e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
