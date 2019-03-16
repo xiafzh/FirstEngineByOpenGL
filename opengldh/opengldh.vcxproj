@@ -77,10 +77,10 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>G:\pro\opengl\opengl_code\OpenGL_DH\FirstEngineByOpenGL\base_util\fbxsdk\include;../base_util;G:\pro\opengl\opengl_code\OpenGL_DH\opengldh\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\base_util\fbxsdk\include;../base_util;G:\pro\opengl\opengl_code\OpenGL_DH\opengldh\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>G:\pro\opengl\opengl_code\OpenGL_DH\FirstEngineByOpenGL\base_util\fbxsdk\lib\vs2015\x86\debug;G:\pro\opengl\opengl_code\OpenGL_DH\opengldh\glew;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\base_util\fbxsdk\lib\vs2017\x86\debug;G:\pro\opengl\opengl_code\OpenGL_DH\opengldh\glew;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>editbin /SUBSYSTEM:CONSOLE $(OUTDIR)\$(ProjectName).exe</Command>
