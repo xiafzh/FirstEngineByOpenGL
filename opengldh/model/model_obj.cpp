@@ -98,18 +98,19 @@ void CModelObj::Init(const char*model_path)
 	delete file_content;
 
 	int vertex_cnt = (int)vertexes.size();
-	m_vertex_buffer = new CVertexBuffer();
-	m_vertex_buffer->SetSize(vertex_cnt);
+	CVertexBuffer* new_vertex_buffer = new CVertexBuffer();
+	m_vertex_buffers.push_back(new_vertex_buffer);
+	new_vertex_buffer->SetSize(vertex_cnt);
 	for (int i = 0; i < vertex_cnt; ++i)
 	{
 		float* temp = positions[vertexes[i].pos_index - 1].v;
-		m_vertex_buffer->SetPosition(i, temp[0], temp[1], temp[2]);
+		new_vertex_buffer->SetPosition(i, temp[0], temp[1], temp[2]);
 
 		temp = texcoords[vertexes[i].texcoord_index - 1].v;
-		m_vertex_buffer->SetTexcoord(i, temp[0], temp[1]);
+		new_vertex_buffer->SetTexcoord(i, temp[0], temp[1]);
 
 		temp = normals[vertexes[i].normal_index - 1].v;
-		m_vertex_buffer->SetNormal(i, temp[0], temp[1], temp[2]);
+		new_vertex_buffer->SetNormal(i, temp[0], temp[1], temp[2]);
 	}
 	m_shader = new CShader();
 	m_shader->Init("Res/model.vs", "Res/model.fs");

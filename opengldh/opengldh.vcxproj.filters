@@ -21,6 +21,7 @@
     <ClCompile Include="..\base_util\utils.cpp">
       <Filter>base_util</Filter>
     </ClCompile>
+    <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scene.h" />
@@ -51,6 +52,7 @@
     <ClInclude Include="..\base_util\glew.h">
       <Filter>base_util</Filter>
     </ClInclude>
+    <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="model">

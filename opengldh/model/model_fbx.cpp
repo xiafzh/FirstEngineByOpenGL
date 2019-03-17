@@ -25,9 +25,7 @@ void CModelFbx::Init(const char*model_path)
 		int texcoord_index;
 		int normal_index;
 	};
-
-	m_vertex_buffer = new CVertexBuffer();
-
+	
 	FbxManager* fbx_manager = FbxManager::Create();
 	FbxIOSettings* fbx_iosettting = FbxIOSettings::Create(fbx_manager, IOSROOT);
 	FbxImporter* fbx_importer = FbxImporter::Create(fbx_manager, "");
@@ -49,97 +47,6 @@ void CModelFbx::Init(const char*model_path)
 	fbx_iosettting->Destroy();
 	fbx_manager->Destroy();
 
-
-// 
-// 	int file_size = 0;
-// 	unsigned char* file_content = LoadFileContent(model_path, file_size);
-// 	if (nullptr == file_content) return;
-// 	
-// 	std::vector<SFloatData> positions, texcoords, normals;
-// 	std::vector<SVertexDefine> vertexes;
-// 
-// 	std::stringstream ss_file_content((char*)file_content);
-// 	std::string temp_str;
-// 
-// 	char sz_one_line[256];
-// 
-// 	while (!ss_file_content.eof()) 
-// 	{
-// 		memset(sz_one_line, 0, 256);
-// 		ss_file_content.getline(sz_one_line, 256);
-// 		if (strlen(sz_one_line) > 0)
-// 		{
-// 			if (sz_one_line[0] == 'v')
-// 			{
-// 				std::stringstream ss_one_line(sz_one_line);
-// 				if (sz_one_line[1] == 't')
-// 				{
-// 					ss_one_line >> temp_str;
-// 					SFloatData SFloatData;
-// 					ss_one_line >> SFloatData.v[0];
-// 					ss_one_line >> SFloatData.v[1];
-// 					texcoords.push_back(SFloatData);
-// 					//printf("texcoord : %f,%f\n", SFloatData.v[0], SFloatData.v[1]);
-// 				}
-// 				else if (sz_one_line[1] == 'n') 
-// 				{
-// 					ss_one_line >> temp_str;
-// 					SFloatData SFloatData;
-// 					ss_one_line >> SFloatData.v[0];
-// 					ss_one_line >> SFloatData.v[1];
-// 					ss_one_line >> SFloatData.v[2];
-// 					normals.push_back(SFloatData);
-// 					//printf("normal : %f,%f,%f\n", SFloatData.v[0], SFloatData.v[1], SFloatData.v[2]);
-// 				}
-// 				else 
-// 				{
-// 					ss_one_line >> temp_str;
-// 					SFloatData SFloatData;
-// 					ss_one_line >> SFloatData.v[0];
-// 					ss_one_line >> SFloatData.v[1];
-// 					ss_one_line >> SFloatData.v[2];
-// 					positions.push_back(SFloatData);
-// 					//printf("position : %f,%f,%f\n", SFloatData.v[0], SFloatData.v[1], SFloatData.v[2]);
-// 				}
-// 			}
-// 			else if (sz_one_line[0] == 'f') 
-// 			{
-// 				std::stringstream ss_one_line(sz_one_line);
-// 				ss_one_line >> temp_str;
-// 				std::string vertexStr;
-// 				for (int i = 0; i < 3; i++) 
-// 				{
-// 					ss_one_line >> vertexStr;
-// 					size_t pos = vertexStr.find_first_of('/');
-// 					std::string posIndexStr = vertexStr.substr(0, pos);
-// 					size_t pos2 = vertexStr.find_first_of('/', pos + 1);
-// 					std::string texcoordIndexStr = vertexStr.substr(pos + 1, pos2 - 1 - pos);
-// 					std::string normalIndexStr = vertexStr.substr(pos2 + 1, vertexStr.length() - 1 - pos2);
-// 					SVertexDefine vd;
-// 					vd.pos_index = atoi(posIndexStr.c_str());
-// 					vd.texcoord_index = atoi(texcoordIndexStr.c_str());
-// 					vd.normal_index = atoi(normalIndexStr.c_str());
-// 					vertexes.push_back(vd);
-// 				}
-// 			}
-// 		}
-// 	}
-// 	delete file_content;
-// 
-// 	int vertex_cnt = (int)vertexes.size();
-// 	m_vertex_buffer = new CVertexBuffer();
-// 	m_vertex_buffer->SetSize(vertex_cnt);
-// 	for (int i = 0; i < vertex_cnt; ++i)
-// 	{
-// 		float* temp = positions[vertexes[i].pos_index - 1].v;
-// 		m_vertex_buffer->SetPosition(i, temp[0], temp[1], temp[2]);
-// 
-// 		temp = texcoords[vertexes[i].texcoord_index - 1].v;
-// 		m_vertex_buffer->SetTexcoord(i, temp[0], temp[1]);
-// 
-// 		temp = normals[vertexes[i].normal_index - 1].v;
-// 		m_vertex_buffer->SetNormal(i, temp[0], temp[1], temp[2]);
-// 	}
 	m_shader = new CShader();
 	m_shader->Init("Res/model.vs", "Res/model.fs");
 	
@@ -167,6 +74,21 @@ void CModelFbx::SetSpecularMaterial(float r, float g, float b, float a)
 	m_shader->SetVec4("U_SpecularMaterial", r, g, b, a);
 }
 
+void CModelFbx::Draw(glm::mat4 & viewMatrix, glm::mat4 projectionMatrix)
+{
+	glPushMatrix();
+	for (int i = 0; i < m_materials.size(); ++i)
+	{
+		glBegin(GL_TRIANGLES);
+		for (int j = 0; j < m_indexes[i].size(); ++j)
+		{
+			glVertex3fv(m_vertex_buffers[0]->GetVertex(m_indexes[i][j])->Position);
+		}
+		glEnd();
+	}
+	glPopMatrix();
+}
+
 void CModelFbx::ImportNode(FbxNode* node)
 {
 	if (nullptr == node) return;
@@ -175,6 +97,16 @@ void CModelFbx::ImportNode(FbxNode* node)
 	if (NULL != mesh)
 	{
 		ImportMeterial(node);
+		int meterial_cnt = m_materials.size();
+		for (int i=0; i< meterial_cnt; ++i)
+		{
+			printf("%d %s\n", m_materials[i]->m_type, m_materials[i]->m_diffuse_color_texture);
+		}
+		for (auto iter = m_material_indexes.begin(); iter != m_material_indexes.end(); ++iter)
+		{
+			printf("%d -> %d\n", iter->first, iter->second);
+		}
+
 		ImportMesh(mesh);
 	}
 
@@ -210,11 +142,48 @@ void CModelFbx::ImportMeterial(FbxNode* node)
 		{
 			int texture_cnt = property.GetSrcObjectCount<FbxTexture>();
 			int curr_mat_idx = -1;
+			for (int j = 0; j < texture_cnt; ++j)
+			{
+
+			}
 			FbxTexture* texture = property.GetSrcObject<FbxTexture>();
 			if (nullptr != texture)
 			{
-				
 				printf("texture name: %s\n", texture->GetName());
+				int curr_mat_cnt = (int)m_materials.size();
+				for (int k = 0; k < curr_mat_cnt; ++k)
+				{
+					if (type == 0 && m_materials[k]->m_type == 0)
+					{
+						if (strcmp(texture->GetName(), m_materials[k]->m_diffuse_color_texture) == 0)
+						{
+							curr_mat_idx = k;
+							break;
+						}
+					}
+					else if (type == 1 && m_materials[k]->m_type == 1)
+					{
+						if (strcmp(texture->GetName(), m_materials[k]->m_diffuse_color_texture) == 0)
+						{
+							curr_mat_idx = k;
+							break;
+						}
+					}
+				}
+
+				if (curr_mat_idx == -1)
+				{
+					SMaterialDef* mat = new SMaterialDef();
+					mat->m_type = type;
+					strcpy(mat->m_diffuse_color_texture, texture->GetName());
+					char temp[256] = { 0 };
+
+					mat->m_texture_id = 0; // CreateByPNG
+					//Texture::LoadTexture("");
+					curr_mat_idx = (int)m_materials.size();
+					m_materials.push_back(mat);
+				}
+				m_material_indexes.insert(std::pair<int, int>(i, curr_mat_idx));
 			}
 		}
 	}
@@ -235,7 +204,50 @@ void CModelFbx::ImportMesh(FbxMesh* mesh)
 		polygon_idx_cnt += mesh->GetPolygonSize(i);
 	}
 
-	m_vertex_buffer->SetSize(polygon_idx_cnt);
+	FbxLayerElementArrayTemplate<int> * fbx_material_indices;
+	mesh->GetMaterialIndices(&fbx_material_indices);
+	FbxGeometryElement::EMappingMode mode = mesh->GetElementMaterial()->GetMappingMode();
+	m_indexes.resize(m_materials.size());
+
+	switch (mode)
+	{
+	case fbxsdk::FbxLayerElement::eNone:
+		break;
+	case fbxsdk::FbxLayerElement::eByControlPoint:
+		break;
+	case fbxsdk::FbxLayerElement::eByPolygonVertex:
+		break;
+	case fbxsdk::FbxLayerElement::eByPolygon:
+	{
+		for (int i = 0; i < polygon_cnt; ++i)
+		{
+			int material_index = fbx_material_indices->GetAt(i);
+			int material_ref = m_material_indexes[material_index];
+ 			m_indexes[material_ref].push_back(i * 3);
+ 			m_indexes[material_ref].push_back(i * 3 + 1);
+ 			m_indexes[material_ref].push_back(i * 3 + 2);
+		}
+	}
+		break;
+	case fbxsdk::FbxLayerElement::eByEdge:
+		break;
+	case fbxsdk::FbxLayerElement::eAllSame:
+		for (int i = 0; i < polygon_cnt; ++i)
+		{
+			int material_index = fbx_material_indices->GetAt(i);
+			int material_ref = m_material_indexes[material_index];
+			m_indexes[material_ref].push_back(i * 3);
+			m_indexes[material_ref].push_back(i * 3 + 1);
+			m_indexes[material_ref].push_back(i * 3 + 2);
+		}
+		break;
+	default:
+		break;
+	}
+
+	CVertexBuffer* new_vertex_buffer = new CVertexBuffer();
+	m_vertex_buffers.push_back(new_vertex_buffer);
+	new_vertex_buffer->SetSize(polygon_idx_cnt);
 
 	int curr_polygon_idx = 0;
 	for (int i = 0; i < polygon_cnt; ++i, ++curr_polygon_idx)
@@ -245,7 +257,8 @@ void CModelFbx::ImportMesh(FbxMesh* mesh)
 		{
 			int vertex_idx = mesh->GetPolygonVertex(i, j);
 
-			m_vertex_buffer->SetPosition(curr_polygon_idx, (float)control_ponits[vertex_idx].mData[0]
+			new_vertex_buffer->SetPosition(curr_polygon_idx
+				, (float)control_ponits[vertex_idx].mData[0]
 				, (float)control_ponits[vertex_idx].mData[1]
 				, (float)control_ponits[vertex_idx].mData[2]
 			);
@@ -253,7 +266,7 @@ void CModelFbx::ImportMesh(FbxMesh* mesh)
 			FbxVector4 normal;
 			if (mesh->GetPolygonVertexNormal(i, j, normal))
 			{
-				m_vertex_buffer->SetNormal(curr_polygon_idx
+				new_vertex_buffer->SetNormal(curr_polygon_idx
 					, (float)normal.mData[0]
 					, (float)normal.mData[1]
 					, (float)normal.mData[2]
@@ -264,7 +277,7 @@ void CModelFbx::ImportMesh(FbxMesh* mesh)
 			bool flag = true;
 			if (mesh->GetPolygonVertexUV(i, j, uv_name.GetItemAt(0)->mString.Buffer(), uv, flag))
 			{
-				m_vertex_buffer->SetTexcoord(curr_polygon_idx
+				new_vertex_buffer->SetTexcoord(curr_polygon_idx
 					, (float)uv.mData[0]
 					, (float)uv.mData[1]
 				);

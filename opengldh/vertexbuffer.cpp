@@ -8,6 +8,11 @@ void CVertexBuffer::SetSize(int vertexCount)
 	m_vbo = CreateBufferObject(GL_ARRAY_BUFFER, sizeof(Vertex)*m_vertex_count, GL_STATIC_DRAW, nullptr);
 }
 
+const Vertex* CVertexBuffer::GetVertex(int idx) const
+{
+	return m_vertexes + idx;
+}
+
 void CVertexBuffer::SetPosition(int index, float x, float y, float z, float w) 
 {
 	m_vertexes[index].Position[0] = x;

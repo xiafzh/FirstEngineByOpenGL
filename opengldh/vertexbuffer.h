@@ -13,6 +13,7 @@ class CVertexBuffer
 public:
 	void SetSize(int vertexCount);
 	inline int GetSize() { return m_vertex_count; }
+	const Vertex* GetVertex(int idx) const;
 
 	void SetPosition(int index, float x, float y, float z, float w = 1.0f);
 	void SetColor(int index, float r, float g, float b, float a = 1.0);

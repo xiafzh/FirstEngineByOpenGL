@@ -34,6 +34,8 @@ private:
 	glm::mat4 m_projectionMatrix;
 
 	CModel* m_model;
+	CModel* m_fbx_model;
+
 	CGround* m_ground;
 	CParticleSystem* m_particle;
 	CCamera* m_camera;
