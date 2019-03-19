@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{4067F23B-902D-4F78-BBD8-43C762D0098E}</ProjectGuid>
     <RootNamespace>opengldh</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -77,10 +77,10 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\base_util\fbxsdk\include;../base_util;G:\pro\opengl\opengl_code\OpenGL_DH\opengldh\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../base_util/libpng/;..\base_util\fbxsdk\include;../base_util;G:\pro\opengl\opengl_code\OpenGL_DH\opengldh\glew;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>..\base_util\fbxsdk\lib\vs2017\x86\debug;G:\pro\opengl\opengl_code\OpenGL_DH\opengldh\glew;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../base_util/libpng/;..\base_util\fbxsdk\lib\vs2017\x86\debug;G:\pro\opengl\opengl_code\OpenGL_DH\opengldh\glew;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>editbin /SUBSYSTEM:CONSOLE $(OUTDIR)\$(ProjectName).exe</Command>
@@ -145,6 +145,7 @@
     <ClInclude Include="..\base_util\ggl.h" />
     <ClInclude Include="..\base_util\ggl_def.h" />
     <ClInclude Include="..\base_util\glew.h" />
+    <ClInclude Include="..\base_util\libpng\png.h" />
     <ClInclude Include="..\base_util\utils.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="ground.h" />

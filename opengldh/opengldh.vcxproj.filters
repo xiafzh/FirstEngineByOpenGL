@@ -53,6 +53,9 @@
       <Filter>base_util</Filter>
     </ClInclude>
     <ClInclude Include="texture.h" />
+    <ClInclude Include="..\base_util\libpng\png.h">
+      <Filter>base_util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="model">
