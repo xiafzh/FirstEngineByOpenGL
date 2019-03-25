@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "../vertexbuffer.h"
 #include "../shader.h"
+#include "../texture.h"
 
 #pragma comment(lib, "libfbxsdk-md.lib")
 #pragma comment(lib, "libxml2-md.lib")
@@ -179,7 +180,8 @@ void CModelFbx::ImportMeterial(FbxNode* node)
 					char temp[256] = { 0 };
 
 					mat->m_texture_id = 0; // CreateByPNG
-					//Texture::LoadTexture("");
+				
+					CTexture::LoadTexture("./Res/dashu.png");
 					curr_mat_idx = (int)m_materials.size();
 					m_materials.push_back(mat);
 				}
