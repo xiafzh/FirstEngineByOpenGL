@@ -6,6 +6,7 @@ class CGround;
 class CSkyBox;
 class CParticleSystem;
 class CCamera;
+class CFrameBufferObject;
 class CScene
 {
 public:
@@ -39,4 +40,9 @@ private:
 	CGround* m_ground;
 	CParticleSystem* m_particle;
 	CCamera* m_camera;
+
+	CFrameBufferObject* m_fbo;
+
+	float m_width;
+	float m_height;
 };

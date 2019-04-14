@@ -126,7 +126,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	wglMakeCurrent(dc, rc);
 	glewInit();
 	g_my_scene.Init();
-	g_my_scene.SetViewPortSize(1280.0f, 720.0f);
+	g_my_scene.SetViewPortSize(rect.right - rect.left, rect.bottom - rect.top);
 	ShowWindow(hwnd, SW_SHOW);
 	UpdateWindow(hwnd);
 	MSG msg;

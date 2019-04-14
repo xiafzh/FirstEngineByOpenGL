@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "../vertexbuffer.h"
 #include "../shader.h"
+#include "../framebufferobject.h"
 
 CModel::CModel()
 {
@@ -23,15 +24,14 @@ CModel::~CModel()
 	}
 }
 
-void CModel::Draw(glm::mat4 & viewMatrix, glm::mat4 projectionMatrix)
+void CModel::Draw(glm::mat4 & viewMatrix, glm::mat4 projectionMatrix, CFrameBufferObject* fbo /*=nullptr*/)
 {
 	glEnable(GL_DEPTH_TEST);
 	for (auto iter = m_vertex_buffers.begin(); iter != m_vertex_buffers.end(); ++iter)
 	{
-
 		(*iter)->Bind();
 		glm::mat4 it = glm::inverseTranspose(m_model_matrix);
-		m_shader->Bind(glm::value_ptr(m_model_matrix), glm::value_ptr(viewMatrix), glm::value_ptr(projectionMatrix));
+		m_shader->Bind(glm::value_ptr(m_model_matrix), glm::value_ptr(viewMatrix), glm::value_ptr(projectionMatrix), fbo);
 		glUniformMatrix4fv(glGetUniformLocation(m_shader->GetProgram(), "IT_ModelMatrix"), 1, GL_FALSE, glm::value_ptr(it));
 
 		glDrawArrays(GL_TRIANGLES, 0, (*iter)->GetSize());
@@ -42,8 +42,7 @@ void CModel::Draw(glm::mat4 & viewMatrix, glm::mat4 projectionMatrix)
 
 void CModel::SetPosition(float x, float y, float z)
 {
-	m_model_matrix = glm::translate(x, y, z)*glm::scale(0.01f, 0.01f, 0.01f);
-//		*glm::rotate(-90.0f, 0.0f, 1.0f, 0.0f);
+	m_model_matrix = glm::translate(x, y, z)*glm::scale(0.01f, 0.01f, 0.01f)*glm::rotate(-90.0f, 0.0f, 1.0f, 0.0f);
 }
 
 void CModel::SetTexture(const char*imagePath)

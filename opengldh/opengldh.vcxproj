@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{4067F23B-902D-4F78-BBD8-43C762D0098E}</ProjectGuid>
     <RootNamespace>opengldh</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="..\base_util\utils.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="framebufferobject.cpp" />
     <ClCompile Include="ground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model\model.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="..\base_util\libpng\png.h" />
     <ClInclude Include="..\base_util\utils.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="framebufferobject.h" />
     <ClInclude Include="ground.h" />
     <ClInclude Include="model\model.h" />
     <ClInclude Include="model\model_fbx.h" />
@@ -158,6 +160,10 @@
     <ClInclude Include="skybox.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="vertexbuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Res\model.fs" />
+    <None Include="Res\model.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

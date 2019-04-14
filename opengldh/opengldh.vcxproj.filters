@@ -22,6 +22,7 @@
       <Filter>base_util</Filter>
     </ClCompile>
     <ClCompile Include="texture.cpp" />
+    <ClCompile Include="framebufferobject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scene.h" />
@@ -56,6 +57,7 @@
     <ClInclude Include="..\base_util\libpng\png.h">
       <Filter>base_util</Filter>
     </ClInclude>
+    <ClInclude Include="framebufferobject.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="model">
@@ -64,5 +66,16 @@
     <Filter Include="base_util">
       <UniqueIdentifier>{afb5718c-0915-45ac-be32-d702afe6f3e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{a2d9df1e-2d06-4869-9d23-666c9cea3850}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Res\model.vs">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Res\model.fs">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

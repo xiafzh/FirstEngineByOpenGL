@@ -21,12 +21,13 @@ struct SUniformVector4f
 		memset(v, 0, sizeof(float) * 4);
 	}
 };
+class CFrameBufferObject;
 
 class CShader 
 {
 public:
 	void Init(const char*vs, const char*fs);
-	void Bind(float *M, float *V, float*P);
+	void Bind(float *M, float *V, float*P, CFrameBufferObject* fbo = nullptr);
 	void SetTexture(const char * name, const char*imagePath);
 	void SetTexture(const char * name, GLuint texture);
 	void SetVec4(const char * name, float x, float y, float z, float w);

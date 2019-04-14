@@ -52,7 +52,7 @@ void CCamera::Move(float speed)
 
 void CCamera::Draw(glm::mat4& projectionMatrix)
 {
-	m_sky_box->Draw(m_camera_pos, GetViewMatrix(), projectionMatrix);
+	//m_sky_box->Draw(m_camera_pos, GetViewMatrix(), projectionMatrix);
 }
 
 void CCamera::MouseMove(glm::ivec4& rect, glm::ivec2& old, glm::ivec2& cur)

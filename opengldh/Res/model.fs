@@ -18,7 +18,7 @@ varying vec4 V_WorldPos;
 varying vec4 V_Texcoord;
 void main()
 {
-	vec4 color=vec4(0.0,0.0,1.0,0.0);
+	vec4 color=vec4(0.0,1.0,1.0,0.0);
 	vec4 ambientColor=U_LightAmbient*U_AmbientMaterial;
 	vec3 lightPos=U_LightPos.xyz;
 	vec3 L=lightPos;

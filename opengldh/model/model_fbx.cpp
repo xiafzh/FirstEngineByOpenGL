@@ -78,10 +78,10 @@ void CModelFbx::SetSpecularMaterial(float r, float g, float b, float a)
 void CModelFbx::Draw(glm::mat4 & viewMatrix, glm::mat4 projectionMatrix)
 {
 	glPushMatrix();
-	for (int i = 0; i < m_materials.size(); ++i)
+	for (int i = 0; i < (int)m_materials.size(); ++i)
 	{
 		glBegin(GL_TRIANGLES);
-		for (int j = 0; j < m_indexes[i].size(); ++j)
+		for (int j = 0; j < (int)m_indexes[i].size(); ++j)
 		{
 			glVertex3fv(m_vertex_buffers[0]->GetVertex(m_indexes[i][j])->Position);
 		}

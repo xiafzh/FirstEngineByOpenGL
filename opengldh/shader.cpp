@@ -1,6 +1,7 @@
 #include "shader.h"
 #include "utils.h"
 #include "vertexbuffer.h"
+#include "framebufferobject.h"
 
 void CShader::Init(const char*vs, const char*fs) 
 {
@@ -32,7 +33,7 @@ void CShader::Init(const char*vs, const char*fs)
 	}
 }
 
-void CShader::Bind(float *M, float *V, float*P) 
+void CShader::Bind(float *M, float *V, float*P, CFrameBufferObject* fbo/* = nullptr*/)
 {
 	glUseProgram(m_program);
 	glUniformMatrix4fv(m_model_matrix_location, 1, GL_FALSE, M);
@@ -42,7 +43,14 @@ void CShader::Bind(float *M, float *V, float*P)
 	for (auto iter = m_uniform_textures.begin(); iter != m_uniform_textures.end(); ++iter) 
 	{
 		glActiveTexture(GL_TEXTURE0 + index);
-		glBindTexture(GL_TEXTURE_2D, iter->second->m_texture);
+		if (nullptr == fbo)
+		{
+			glBindTexture(GL_TEXTURE_2D, iter->second->m_texture);
+		}
+		else
+		{
+			glBindTexture(GL_TEXTURE_2D, fbo->GetColorBuffer());
+		}
 		glUniform1i(iter->second->m_location, index++);
 	}
 	for (auto iter = m_uniform_vec4s.begin(); iter != m_uniform_vec4s.end(); ++iter)

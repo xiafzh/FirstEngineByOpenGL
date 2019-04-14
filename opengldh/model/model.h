@@ -3,6 +3,7 @@
 
 class CVertexBuffer;
 class CShader;
+class CFrameBufferObject;
 class CModel
 {
 public:
@@ -10,7 +11,7 @@ public:
 	virtual ~CModel();
 
 	virtual	void Init(const char*model_path) = 0;
-	virtual void Draw(glm::mat4 & viewMatrix, glm::mat4 projectionMatrix);
+	virtual void Draw(glm::mat4 & viewMatrix, glm::mat4 projectionMatrix, CFrameBufferObject* fbo = nullptr);
 	virtual void SetPosition(float x, float y, float z);
 	virtual void SetTexture(const char*imagePath);
 protected:
