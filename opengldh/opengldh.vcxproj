@@ -129,12 +129,14 @@
   <ItemGroup>
     <ClCompile Include="..\base_util\utils.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="diffuse_fs.cpp" />
     <ClCompile Include="framebufferobject.cpp" />
     <ClCompile Include="ground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="model\model.cpp" />
     <ClCompile Include="model\model_fbx.cpp" />
     <ClCompile Include="model\model_obj.cpp" />
+    <ClCompile Include="model\model_obj_ext.cpp" />
     <ClCompile Include="particlesystem.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="shader.cpp" />
@@ -149,11 +151,13 @@
     <ClInclude Include="..\base_util\libpng\png.h" />
     <ClInclude Include="..\base_util\utils.h" />
     <ClInclude Include="camera.h" />
+    <ClInclude Include="diffuse_fs.h" />
     <ClInclude Include="framebufferobject.h" />
     <ClInclude Include="ground.h" />
     <ClInclude Include="model\model.h" />
     <ClInclude Include="model\model_fbx.h" />
     <ClInclude Include="model\model_obj.h" />
+    <ClInclude Include="model\model_obj_ext.h" />
     <ClInclude Include="particlesystem.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="shader.h" />
@@ -162,6 +166,8 @@
     <ClInclude Include="vertexbuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Res\diffuse_vs.fs" />
+    <None Include="Res\diffuse_vs.vs" />
     <None Include="Res\model.fs" />
     <None Include="Res\model.vs" />
   </ItemGroup>

@@ -134,3 +134,13 @@ void CShader::SetVec4(const char * name, float x, float y, float z, float w)
 		iter->second->v[3] = w;
 	}
 }
+
+void CShader::SetNM(glm::mat4& model)
+{
+	GLint glnm = glGetUniformLocation(m_program, "NM");
+	if (glnm >= 0)
+	{
+		glm::mat4 nm = glm::inverseTranspose(model);
+		glUniformMatrix4fv(glnm, 1, GL_FALSE, glm::value_ptr(nm));
+	}
+}

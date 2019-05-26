@@ -31,6 +31,7 @@ public:
 	void SetTexture(const char * name, const char*imagePath);
 	void SetTexture(const char * name, GLuint texture);
 	void SetVec4(const char * name, float x, float y, float z, float w);
+	void SetNM(glm::mat4& model);
 public:
 	inline GLuint GetProgram() const { return m_program; }
 private:
