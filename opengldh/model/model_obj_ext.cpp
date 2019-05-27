@@ -115,7 +115,7 @@ void CModelObjExt::Init(const char*model_path)
 	m_shader = new CShader();
 	m_shader->Init("Res/diffuse_vs.vs", "Res/diffuse_vs.fs");
 
-	m_shader->SetVec4("U_LightPos", 1.0f, 1.0f, 1.0f, 0.0f);
+	m_shader->SetVec4("U_LightPos", 1.0f, 1.0f, -3.0f, 0.0f);
 	m_shader->SetVec4("U_AmbientLightColor", 1.0f, 1.0f, 1.0f, 1.0f);
 	m_shader->SetVec4("U_DiffuseLightColor", 1.0f, 1.0f, 1.0f, 1.0f);
 	//m_shader->SetVec4("U_LightSpecular", 1.0f, 1.0f, 1.0f, 1.0f);

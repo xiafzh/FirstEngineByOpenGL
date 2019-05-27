@@ -3,7 +3,7 @@ precision mediump float;
 #endif
 
 
-uniform vec3 U_LightPos;
+uniform vec4 U_LightPos;
 uniform vec4 U_AmbientLightColor;
 uniform vec4 U_AmbientMaterial;
 uniform vec4 U_DiffuseLightColor;
@@ -20,9 +20,8 @@ void main()
 
 	vec3 n=normalize(V_Normal);
 
-	float diffuseIntensity= max(0.0f,0.0-dot(L,n));
+	float diffuseIntensity= max(0.0f,dot(L,n));
 	vec4 diffuseColor=U_DiffuseLightColor*U_DiffuseMaterial*diffuseIntensity;
-
-
+	
 	gl_FragColor=ambientColor+diffuseColor;
 }
