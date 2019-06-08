@@ -113,17 +113,18 @@ void CModelObjExt::Init(const char*model_path)
 		new_vertex_buffer->SetNormal(i, temp[0], temp[1], temp[2]);
 	}
 	m_shader = new CShader();
-	m_shader->Init("Res/diffuse_vs.vs", "Res/diffuse_vs.fs");
-
-	m_shader->SetVec4("U_LightPos", 1.0f, 1.0f, -3.0f, 0.0f);
+	m_shader->Init("Res/direction_light.vs", "Res/direction_light.fs");
+	
+	m_shader->SetVec4("U_LightPos", 1.0f, 1.0f, 0.0f, 0.0f);
+	m_shader->SetVec4("U_EyePos", 0.0f, 0.0f, 0.0f, 0.0f);
 	m_shader->SetVec4("U_AmbientLightColor", 1.0f, 1.0f, 1.0f, 1.0f);
 	m_shader->SetVec4("U_DiffuseLightColor", 1.0f, 1.0f, 1.0f, 1.0f);
-	//m_shader->SetVec4("U_LightSpecular", 1.0f, 1.0f, 1.0f, 1.0f);
+	m_shader->SetVec4("U_SpecularLightColor", 1.0f, 1.0f, 1.0f, 1.0f);
 	m_shader->SetVec4("U_CameraPos", 0.0f, 0.0f, 0.0f, 1.0f);
 	m_shader->SetVec4("U_LightOpt", 32.0f, 0.0f, 0.0f, 1.0f);
 	SetAmbientMaterial(0.1f, 0.1f, 0.1f, 1.0f);
-	SetDiffuseMaterial(0.5f, 0.5f, 0.5f, 1.0f);
-	//SetSpecularMaterial(1.0f, 1.0f, 1.0f, 1.0f);
+	SetDiffuseMaterial(0.2f, 0.2f, 0.2f, 1.0f);
+	SetSpecularMaterial(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 

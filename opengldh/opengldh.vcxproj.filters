@@ -91,5 +91,17 @@
     <None Include="Res\diffuse_vs.fs">
       <Filter>shader</Filter>
     </None>
+    <None Include="Res\specular_vs.fs">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Res\specular_vs.vs">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Res\direction_light.fs">
+      <Filter>shader</Filter>
+    </None>
+    <None Include="Res\direction_light.vs">
+      <Filter>shader</Filter>
+    </None>
   </ItemGroup>
 </Project>
